@@ -2,7 +2,19 @@
    Site interactions. Loaded on every page.
    - a lime ripple that expands from wherever you click
    - a comet tail that follows the cursor
+   - GoatCounter analytics (counts every page automatically)
    ========================================================================= */
+
+/* Load GoatCounter analytics. It records one page view per visit and does
+   NOT run on localhost, so your own local testing isn't counted.
+   Dashboard: https://mashavakula.goatcounter.com */
+(function () {
+  var g = document.createElement('script');
+  g.async = true;
+  g.src = '//gc.zgo.at/count.js';
+  g.setAttribute('data-goatcounter', 'https://mashavakula.goatcounter.com/count');
+  document.head.appendChild(g);
+})();
 
 (function () {
   // Respect visitors who prefer reduced motion — no ripple for them.
