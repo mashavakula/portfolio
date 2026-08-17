@@ -1,0 +1,14 @@
+PUT YOUR IMAGES IN THIS FOLDER.
+
+Every picture on the site lives here. To show an image on a page, the page
+refers to it by filename, e.g.  <img src="../images/streets-zoom-out-diagram-1.png">.
+
+Tips:
+- Use simple filenames: lowercase, no spaces (use-dashes-like-this.png).
+- Keep files reasonably small (under ~1 MB each) so pages load fast.
+- Supported formats: .png .jpg .jpeg .gif .webp .svg
+- The homepage uses:  images/mtl-stalker-map.png
+- The streets example uses: images/streets-zoom-out-diagram-1.png and -2.png
+  Add those files (or change the filenames inside the pages to match yours).
+
+You can delete this text file — it's just a note.
