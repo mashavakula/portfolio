@@ -1,0 +1,392 @@
+/* =========================================================================
+   m masha wakula — portfolio stylesheet
+   This one file controls the look of EVERY page (colors, fonts, spacing).
+   Change something here and it updates the whole site at once.
+   ========================================================================= */
+
+:root {
+  /* --- Change these values to restyle the whole site --- */
+  --text: #1a1a1a;          /* main text color */
+  --muted: #6b6b6b;         /* lighter text (dates, captions) */
+  --link: #1a1a1a;          /* link color (black; turns lime on hover) */
+  --accent: #E3FC02;        /* small accent (hover, rules) — favicon lime */
+  --bg: #ffffff;            /* page background */
+  --line: #e2e2e2;          /* thin divider lines */
+  --maxwidth: 780px;        /* how wide the reading column gets */
+  --font: "Helvetica Neue", Arial, sans-serif;
+  /* small "+" cross (registration mark) drawn inline, used at photo corners */
+  --plus: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='11' height='11'><path d='M5.5 0V11M0 5.5H11' stroke='%231a1a1a' stroke-width='1'/></svg>");
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+/* Custom cursor: a small #990099 dot (drawn inline, no image file).
+   Change r="5" for a bigger/smaller dot; the "7 7" is the click point (its center). */
+html, a, .tile, button {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><circle cx="9" cy="9" r="7" fill="%23E3FC02"/></svg>') 9 9, auto;
+}
+
+/* Comet-tail dots that follow the cursor (paired with script.js) */
+.trail-dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Lilac click ripple — a ring expands from each click (paired with script.js).
+   Change the border color, the final scale(6), or the 0.6s duration to taste. */
+.ripple {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 0.5px solid var(--accent);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.4);
+  opacity: 0.8;
+  z-index: 9999;
+  animation: ripple-anim 0.6s ease-out forwards;
+}
+@keyframes ripple-anim {
+  to { transform: translate(-50%, -50%) scale(6); opacity: 0; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+/* Two-column layout: sidebar on the left, content on the right.
+   On phones it stacks into one column automatically. */
+.wrap {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 56px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+/* ---------------- Sidebar ---------------- */
+.sidebar {
+  font-size: 14px;
+  line-height: 1.55;
+}
+.sidebar .name {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 60px 0 4px;
+}
+.sidebar .role { margin: 0 0 14px; color: var(--muted); }
+.sidebar p { margin: 0 0 14px; }
+.sidebar .label {
+  text-transform: lowercase;
+  font-size: 14px;
+  color: var(--text);
+  margin: 18px 0 4px;
+}
+.sidebar .label::after { content: ":"; }   /* colon after elsewhere / downloads / email */
+.sidebar ul { list-style: none; margin: 0 0 8px; padding: 0; }
+.sidebar li { margin: 2px 0; }
+
+/* ---------------- Main content ---------------- */
+.content { max-width: var(--maxwidth); }
+
+a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--accent); }
+
+h1 { font-size: 72px; line-height: 1.25; margin: 40px 0 120px; }
+h2 { font-size: 16px; line-height: 1.25; margin: 80px 0 10px; }
+h3 { font-size: 18px; margin: 24px 0 6px; }
+h4 { font-size: 64px; line-height: 1.25; font-weight: 700; margin: 8px 0 160px; }
+
+/* Title on each individual project page (independent of the homepage h1) */
+.project h1 { margin: 90px 0 120px; }
+
+.tagline { font-size: 24px; font-weight: 700; margin: 0 0 24px; }
+
+.meta { color: var(--muted); font-size: 14px; margin: 0 0 24px; }
+
+/* Project spec block (program / location / etc.) under the title.
+   Two aligned columns: label on the left, value on the right.
+   Type each value inside the second <span> in the HTML. */
+.specs {
+  display: grid;
+  grid-template-columns: max-content 1fr;   /* label column | value column */
+  column-gap: 18px;
+  row-gap: 2px;
+  margin: 0 0 28px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.specs .k { color: var(--muted); }
+
+/* Small "designed by" credit at the bottom of the page */
+.site-credit { font-size: 12px; color: var(--muted); margin-top: 120px; }
+
+/* "about me" link at the end of the sidebar */
+.about-link { margin-top: 20px; font-size: 14px; }
+
+/* Body text on project + about pages matches the sidebar (14px / 1.55).
+   Headings, .meta, captions and the credit keep their own explicit sizes. */
+.content.project, .content.about { font-size: 14px; line-height: 1.55; }
+
+/* About page: narrow column (sidebar width), photo + text below, no title */
+.content.about { max-width: 260px; }
+.about-fig { margin-top: 110px; }
+.about-photo { width: 100%; height: auto; display: block; }
+
+/* Paragraph styled to match the sidebar text */
+.sidebar-text { font-size: 14px; line-height: 1.55; color: var(--text); }
+
+hr { border: 0; border-top: 1px solid var(--line); margin: 40px 0; }
+
+/* A quote / epigraph inside a project — Times New Roman italic */
+blockquote {
+  margin: 24px 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+  color: var(--muted);
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-size: 16px;
+}
+
+/* Project list on the homepage (still used for Current research) */
+.project-list { list-style: none; padding: 0; margin: 0; }
+.project-list li { margin: 0 0 14px; }
+.project-list a { font-size: 14px; }
+
+/* ---------------- Selected-projects image grid ---------------- */
+/* Change minmax(160px…) to make the tiles bigger or smaller. */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* 3 tiles per row */
+  gap: 36px;                               /* space between tiles */
+  margin: 8px 0 0;
+}
+.tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;      /* square tiles; use 4 / 3 for landscape */
+  overflow: hidden;
+  background: var(--bg);     /* what shows once the fill disappears on hover */
+  text-decoration: none;
+}
+/* Placeholder fill: accent color + a pattern set by the .pat-* class.
+   If you later add a real <img> to a tile, the photo sits on top and
+   covers this automatically — no other change needed. */
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--bg);   /* white background */
+  transition: opacity 0.2s ease;
+}
+.tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* fills the square, cropping as needed */
+  display: block;
+  transition: opacity 0.2s ease;
+}
+/* Hover / keyboard-focus: fade the fill AND photo away, reveal the title */
+.tile:hover::before,
+.tile:focus::before,
+.tile:hover img,
+.tile:focus img { opacity: 0; }
+
+/* ---- pattern library — thin accent lines/dots on a white background ----
+   To change a tile's pattern, swap its pat-* class in index.html.
+   A tile with NO pat-* class is left plain white.
+   Available: pat-diag, pat-diag-rev, pat-vert, pat-horiz, pat-grid, pat-cross,
+              pat-dash-horiz, pat-dash-vert, pat-dash-diag, pat-dash-diag-rev,
+              pat-dotline-horiz, pat-dotline-vert, pat-dots, pat-dots-lg */
+.pat-diag::before {
+  background-image: repeating-linear-gradient(45deg,
+    #000000 0 1px, transparent 1px 14px);
+}
+.pat-diag-rev::before {
+  background-image: repeating-linear-gradient(-45deg,
+    #000000 0 1px, transparent 1px 14px);
+}
+.pat-vert::before {
+  background-image: repeating-linear-gradient(90deg,
+    #000000 0 1px, transparent 1px 14px);
+}
+.pat-horiz::before {
+  background-image: repeating-linear-gradient(0deg,
+    #000000 0 1px, transparent 1px 14px);
+}
+.pat-grid::before {
+  background-image:
+    repeating-linear-gradient(0deg,  #000000 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(90deg, #000000 0 1px, transparent 1px 16px);
+}
+.pat-cross::before {
+  background-image:
+    repeating-linear-gradient(45deg,  #000000 0 1px, transparent 1px 14px),
+    repeating-linear-gradient(-45deg, #000000 0 1px, transparent 1px 14px);
+}
+.pat-dots::before {
+  background-image: radial-gradient(#000000 1px, transparent 1.5px);
+  background-size: 14px 14px;
+}
+.pat-dots-lg::before {
+  background-image: radial-gradient(#000000 1.5px, transparent 2px);
+  background-size: 22px 22px;
+}
+
+/* dashed lines — white bars (listed first = on top) break the line into dashes */
+.pat-dash-horiz::before {
+  background-image:
+    repeating-linear-gradient(90deg, #fff 0 4px, transparent 4px 10px),
+    repeating-linear-gradient(0deg,  #000000 0 1px, transparent 1px 14px);
+}
+.pat-dash-vert::before {
+  background-image:
+    repeating-linear-gradient(0deg,  #fff 0 4px, transparent 4px 10px),
+    repeating-linear-gradient(90deg, #000000 0 1px, transparent 1px 14px);
+}
+.pat-dash-diag::before {
+  background-image:
+    repeating-linear-gradient(-45deg, #fff 0 4px, transparent 4px 10px),
+    repeating-linear-gradient(45deg,  #000000 0 1px, transparent 1px 14px);
+}
+.pat-dash-diag-rev::before {
+  background-image:
+    repeating-linear-gradient(45deg,  #fff 0 4px, transparent 4px 10px),
+    repeating-linear-gradient(-45deg, #000000 0 1px, transparent 1px 14px);
+}
+
+/* dotted lines — dots spaced tight one way, wide the other */
+.pat-dotline-horiz::before {
+  background-image: radial-gradient(#000000 1px, transparent 1.5px);
+  background-size: 8px 16px;
+}
+.pat-dotline-vert::before {
+  background-image: radial-gradient(#000000 1px, transparent 1.5px);
+  background-size: 16px 8px;
+}
+
+/* The title — hidden until you hover, then shown as a slim link */
+.tile-title {
+  position: absolute;
+  inset: 0;                  /* covers the whole tile */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 400;          /* slightly thicker than slim */
+  color: var(--text);        /* black */
+  text-decoration: none;
+  opacity: 0;                /* invisible by default */
+  transition: opacity 0.2s ease;
+}
+.tile:hover .tile-title,
+.tile:focus .tile-title { opacity: 1; }   /* appears on hover / keyboard focus */
+
+@media (max-width: 720px) {
+  .project-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+}
+
+/* Touch devices have no hover, so always show the tile titles there
+   (over a faded pattern) — otherwise the tiles look blank on phones. */
+@media (hover: none), (pointer: coarse) {
+  .tile::before { opacity: 0.3; }
+  .tile-title { opacity: 1; }
+}
+
+/* Images inside project pages — with a small "+" at each corner */
+figure {
+  margin: 24px 0;
+  padding: 16px;                 /* room for the corner crosses around the photo */
+  background-image: var(--plus), var(--plus), var(--plus), var(--plus);
+  background-repeat: no-repeat;
+  background-position: top left, top right, bottom left, bottom right;
+  background-size: 11px 11px;
+}
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* Two-photos-per-row gallery */
+.photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 24px 0; }
+.photo-grid figure { margin: 0; }
+
+/* A small standalone image (change 320px to resize) */
+.figure-small { max-width: 320px; }
+
+/* Several images forced into a single row (equal widths) */
+.image-row { display: flex; gap: 8px; margin: 24px 0; }
+.image-row figure { flex: 1; margin: 0; min-width: 0; }
+
+/* Loose ~2x2 "collage" — two columns with slight random tilts/offsets */
+.collage { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 36px 0; }
+.collage figure { margin: 0; }
+.collage figure:nth-child(1) { transform: translate(4px, 10px); }
+.collage figure:nth-child(2) { transform: translate(-6px, -8px); }
+.collage figure:nth-child(3) { transform: translate(-4px, 8px); }
+.collage figure:nth-child(4) { transform: translate(6px, -6px); }
+
+/* Gallery of many SMALL images — straight, offset like a collage.
+   Change minmax(140px…) to resize the thumbnails. */
+.collage-small { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 36px 0; }
+.collage-small figure { margin: 0; }
+.collage-small figure:nth-child(4n+1) { transform: translateY(10px); }
+.collage-small figure:nth-child(4n+2) { transform: translateY(-6px); }
+.collage-small figure:nth-child(4n+3) { transform: translateY(7px); }
+.collage-small figure:nth-child(4n)   { transform: translateY(-9px); }
+
+/* Embedded interactive map (or any embedded page) */
+.map-embed {
+  width: 100%;
+  height: 560px;             /* change this to make the map taller/shorter */
+  margin: 24px 0;
+  border: 1px solid var(--line);
+}
+.map-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* "back to main" link */
+.back { display: inline-block; margin-bottom: 28px; font-size: 14px; }
+
+/* Editing hint blocks — DELETE these from your pages once filled in.
+   They only show a dashed box so you can see where to add content. */
+.todo {
+  border: 1px dashed var(--accent);
+  background: #fdf4f2;
+  color: var(--accent);
+  padding: 12px 14px;
+  font-size: 14px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+/* ---------------- Phone layout ---------------- */
+@media (max-width: 720px) {
+  .wrap { grid-template-columns: 1fr; gap: 32px; padding: 28px 20px 60px; }
+  body { font-size: 16px; }
+  h1 { font-size: 26px; }
+}
