@@ -105,13 +105,13 @@ body {
 a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
 a:hover { color: var(--accent); }
 
-h1 { font-size: 72px; line-height: 1.25; margin: 40px 0 120px; }
+h1 { font-size: 64px; line-height: 1.25; margin: 40px 0 120px; }
 h2 { font-size: 16px; line-height: 1.25; margin: 80px 0 10px; }
 h3 { font-size: 18px; margin: 24px 0 6px; }
 h4 { font-size: 64px; line-height: 1.25; font-weight: 700; margin: 8px 0 160px; }
 
 /* Title on each individual project page (independent of the homepage h1) */
-.project h1 { margin: 90px 0 120px; }
+.project h1 { font-size: 72px; margin: 90px 0 120px; }
 
 .tagline { font-size: 24px; font-weight: 700; margin: 0 0 24px; }
 
